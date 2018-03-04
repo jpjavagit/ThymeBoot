@@ -1,0 +1,51 @@
+<!doctype html>
+<html xmlns:th="http://thymeleaf.org" lang="en">  
+<head>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+	<title>Thymeleaf/Bootstrap</title>
+</head>
+	<body>
+				
+			<form action="/saveCustomer" method="Post" class="form-horizontal" th:object="${customer}">
+	
+				<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+					<span th:text="${message}"></span>
+				</div>
+				
+				<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+					<div th:each="error : ${#fields.detailedErrors()}">
+						<span th:text="${error.message}"></span>
+					</div>
+				</div>
+									
+				<div class="panel panel-default">
+				
+					<div class="panel-heading">
+						<h3 class="panel-title">ThymeBoot</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group row" th:classappend="${#fields.hasErrors('email')} ? has-error">
+						    <label for="email" class="col-sm-2 col-form-label">E-mail:</label>
+						    <div class="col-sm-4">
+							    <input type="email" class="form-control" size="40" maxlength="50" id="email" th:field="*{email}"/>
+						    </div>
+					  	</div>
+						<div class="form-group row" th:classappend="${#fields.hasErrors('valueOfPurchase')} ? has-error">
+						 	<label for="valueOfPurchase" class="col-sm-2 col-form-label">Value (R$):</label>
+						    <div class="col-sm-2">
+							    <input type="text" class="form-control currency" id="valueOfPurchase" size="40" maxlength="20" th:field="*{valueOfPurchase}"/>
+						    </div>
+						</div>
+				  		<button type="submit" class="btn btn-primary">Submit</button>
+				  		<a href="/customers" class="btn btn-secondary">See Customers</a>
+					</div>
+				</div>
+			</form>
+		
+		<script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/jquery.maskMoney.min.js"></script>
+		<script type="text/javascript" src="/js/util.js"></script>
+	</body>
+</html>
